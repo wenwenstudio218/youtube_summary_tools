@@ -42,6 +42,4 @@ yarn-debug.log*
 
 # Playwright verification artifacts
 .playwright-mcp/
-/empty-state.png
-/result-state.png
-/long-active.png
+/*.png
