@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* 色票：墨黑 / 冷調紙白 / 深松綠(結構) / 朱紅(跳轉動作) */
+  --color-ink: #1a1714;
+  --color-paper: #f6f7f5;
+  --color-surface: #ffffff;
+  --color-pine: #1f4d46;
+  --color-pine-soft: #2f655c;
+  --color-seek: #e8482b;
+  --color-muted: #6b6660;
+  --color-hairline: #e4e2dc;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-reading: var(--font-reading), ui-serif, Georgia, serif;
+  --font-data: var(--font-data), ui-monospace, monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-display);
+}
+
+/* 朱紅選取色，呼應主題 */
+::selection {
+  background-color: color-mix(in srgb, var(--color-seek) 22%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@keyframes bullet-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bullet-in {
+  animation: bullet-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
 }

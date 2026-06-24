@@ -39,3 +39,9 @@ yarn-debug.log*
 
 # Brainstorming visual companion scratch
 .superpowers/
+
+# Playwright verification artifacts
+.playwright-mcp/
+/empty-state.png
+/result-state.png
+/long-active.png
