@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { VideoPlayer, type VideoPlayerHandle } from "./VideoPlayer";
 import { SummaryPanel } from "./SummaryPanel";
+import { QAPanel } from "./QAPanel";
 import type { ApiErrorBody, Summary } from "@/lib/types";
 
 export function SummarizerApp() {
@@ -96,10 +97,17 @@ export function SummarizerApp() {
             </p>
           </div>
 
-          <SummaryPanel
-            summary={summary}
-            onSeek={(s) => playerRef.current?.seekTo(s)}
-          />
+          <div>
+            <SummaryPanel
+              summary={summary}
+              onSeek={(s) => playerRef.current?.seekTo(s)}
+            />
+            <QAPanel
+              key={summary.videoId}
+              url={`https://www.youtube.com/watch?v=${summary.videoId}`}
+              onSeek={(s) => playerRef.current?.seekTo(s)}
+            />
+          </div>
         </div>
       )}
     </div>

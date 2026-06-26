@@ -37,3 +37,18 @@ export type ApiErrorBody = {
     message: string;
   };
 };
+
+/** Q&A 回答中的引用，與 Bullet 同形（timestamp 以秒為單位） */
+export type Citation = Bullet;
+
+/** ask() 的回傳：繁中回答 + 可跳轉的引用時間戳 */
+export type AskResult = {
+  answer: string;
+  citations: Citation[];
+};
+
+/** 送往 /api/ask 的精簡對話歷史 */
+export type AskHistoryItem = {
+  role: "user" | "assistant";
+  text: string;
+};
