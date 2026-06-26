@@ -52,3 +52,25 @@ export type AskHistoryItem = {
   role: "user" | "assistant";
   text: string;
 };
+
+/** 搜尋結果的單一影片卡片，duration 以秒為單位 */
+export type VideoCard = {
+  videoId: string;
+  title: string;
+  channel: string;
+  thumbnail: string;
+  duration: number;
+};
+
+/** 搜尋篩選條件 */
+export type SearchFilters = {
+  order: "relevance" | "date" | "viewCount" | "rating";
+  uploaded: "any" | "today" | "week" | "month" | "year";
+  length: "any" | "short" | "medium" | "long";
+};
+
+/** 搜尋結果，nextPageToken 用於「載入更多」 */
+export type SearchResult = {
+  items: VideoCard[];
+  nextPageToken?: string;
+};

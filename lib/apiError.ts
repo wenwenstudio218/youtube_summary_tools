@@ -8,6 +8,8 @@ const STATUS_BY_CODE: Record<string, number> = {
   [ErrorCodes.TRANSCRIPT_FETCH_FAILED]: 502,
   [ErrorCodes.METADATA_FAILED]: 502,
   [ErrorCodes.SUMMARIZE_FAILED]: 502,
+  [ErrorCodes.SEARCH_FAILED]: 502,
+  [ErrorCodes.QUOTA_EXCEEDED]: 502,
 };
 
 /** 將錯誤轉成統一的 { status, body } 供路由回應 */
