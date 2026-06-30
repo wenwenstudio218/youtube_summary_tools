@@ -2,6 +2,8 @@
 
 把一支 YouTube 影片，整理成一頁乾淨、可隨時跳轉的重點筆記。貼上網址或關鍵字搜尋，工具會抓取字幕、用 Claude 生成繁體中文摘要，並附上可點擊跳轉的時間戳；還能針對影片內容多輪問答，最後一鍵匯出 Markdown / Word / PDF。
 
+**🔗 線上版：https://youtube-summary-tools.vercel.app/**
+
 ## 功能
 
 - **搜尋 / 貼網址雙模式**
