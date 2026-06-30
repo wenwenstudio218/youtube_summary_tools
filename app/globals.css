@@ -1,15 +1,43 @@
 @import "tailwindcss";
 
+/* 以 class 控制深色模式：<html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 色票以 CSS 變數定義，深淺色各自覆寫；@theme 以 var() 參照，使工具類別隨 class 切換 */
+:root {
+  --ink: #1a1714;
+  --paper: #f6f7f5;
+  --surface: #ffffff;
+  --pine: #1f4d46;
+  --pine-soft: #2f655c;
+  --seek: #e8482b;
+  --muted: #6b6660;
+  --hairline: #e4e2dc;
+  --oncolor: #f6f7f5; /* 綠/紅底按鈕上的文字，兩種模式皆維持淺色 */
+}
+
+.dark {
+  --ink: #eceae3;
+  --paper: #14130e;
+  --surface: #1f1d17;
+  --pine: #3e8576;
+  --pine-soft: #4e9a8a;
+  --seek: #f0573b;
+  --muted: #9a958c;
+  --hairline: #322f28;
+  --oncolor: #f6f7f5;
+}
+
 @theme {
-  /* 色票：墨黑 / 冷調紙白 / 深松綠(結構) / 朱紅(跳轉動作) */
-  --color-ink: #1a1714;
-  --color-paper: #f6f7f5;
-  --color-surface: #ffffff;
-  --color-pine: #1f4d46;
-  --color-pine-soft: #2f655c;
-  --color-seek: #e8482b;
-  --color-muted: #6b6660;
-  --color-hairline: #e4e2dc;
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-pine: var(--pine);
+  --color-pine-soft: var(--pine-soft);
+  --color-seek: var(--seek);
+  --color-muted: var(--muted);
+  --color-hairline: var(--hairline);
+  --color-oncolor: var(--oncolor);
 
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
   --font-reading: var(--font-reading), ui-serif, Georgia, serif;

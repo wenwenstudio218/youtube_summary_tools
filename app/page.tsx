@@ -1,10 +1,12 @@
 import { SummarizerApp } from "@/components/SummarizerApp";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
     <>
       <header className="border-b border-hairline">
-        <div className="mx-auto flex w-full max-w-6xl items-center gap-2 px-5 py-4">
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-2 px-5 py-4">
+          <div className="flex items-center gap-2">
           <svg
             viewBox="0 0 24 24"
             width="22"
@@ -19,9 +21,11 @@ export default function Home() {
             />
             <path fill="#fff" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
           </svg>
-          <span className="font-display text-sm font-semibold tracking-tight text-ink">
-            Youtube影片 摘要整理工具
-          </span>
+            <span className="font-display text-sm font-semibold tracking-tight text-ink">
+              Youtube影片 摘要整理工具
+            </span>
+          </div>
+          <ThemeToggle />
         </div>
       </header>
 

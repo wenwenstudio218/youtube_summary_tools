@@ -30,7 +30,7 @@ export function ModeToggle({ mode, onChange }: Props) {
             type="button"
             onClick={() => onChange(opt.value)}
             className={`cursor-pointer rounded-lg px-4 py-2 font-display text-sm transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine ${
-              selected ? "bg-pine text-paper" : "text-muted hover:text-ink"
+              selected ? "bg-pine text-oncolor" : "text-muted hover:text-ink"
             }`}
           >
             {opt.label}

@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { AppError, ErrorCodes } from "./errors";
 import { formatTimestamp } from "./time";
+import { stripMarkdown } from "./text";
 import type { Bullet, Summary, TranscriptSegment, VideoMetadata } from "./types";
 
 export type SummarizeOptions = {
@@ -31,13 +32,20 @@ export async function summarize(
   return sortSummary(result);
 }
 
-/** 依時間戳由小到大排序長短兩版重點（Claude 回傳順序不保證遞增） */
+/**
+ * 整理重點：去除內文 Markdown 標記，並依時間戳由小到大排序
+ *（Claude 回傳順序不保證遞增）。
+ */
 function sortSummary(summary: Summary): Summary {
   const byTime = (a: Bullet, b: Bullet) => a.timestamp - b.timestamp;
+  const clean = (bullets: Bullet[]) =>
+    bullets
+      .map((b) => ({ ...b, point: stripMarkdown(b.point) }))
+      .sort(byTime);
   return {
     ...summary,
-    short: [...summary.short].sort(byTime),
-    long: [...summary.long].sort(byTime),
+    short: clean(summary.short),
+    long: clean(summary.long),
   };
 }
 

@@ -140,7 +140,7 @@ export function SummarizerApp() {
           <button
             type="submit"
             disabled={!url.trim()}
-            className="cursor-pointer rounded-xl bg-pine px-6 py-3 font-display text-sm font-medium text-paper transition-colors duration-200 hover:bg-pine-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine disabled:cursor-not-allowed disabled:opacity-45"
+            className="cursor-pointer rounded-xl bg-pine px-6 py-3 font-display text-sm font-medium text-oncolor transition-colors duration-200 hover:bg-pine-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine disabled:cursor-not-allowed disabled:opacity-45"
           >
             整理摘要
           </button>

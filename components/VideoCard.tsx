@@ -27,7 +27,7 @@ export function VideoCard({ card, onSummarize }: Props) {
           </div>
         )}
         {card.duration > 0 && (
-          <span className="absolute bottom-1.5 right-1.5 rounded bg-ink/85 px-1.5 py-0.5 font-data text-[0.7rem] text-paper">
+          <span className="absolute bottom-1.5 right-1.5 rounded bg-black/75 px-1.5 py-0.5 font-data text-[0.7rem] text-white">
             {formatTimestamp(card.duration)}
           </span>
         )}
@@ -41,7 +41,7 @@ export function VideoCard({ card, onSummarize }: Props) {
         <button
           type="button"
           onClick={() => onSummarize(card.videoId)}
-          className="mt-3 cursor-pointer self-start rounded-lg bg-pine px-3 py-1.5 font-display text-xs font-medium text-paper transition-colors duration-200 hover:bg-pine-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
+          className="mt-3 cursor-pointer self-start rounded-lg bg-pine px-3 py-1.5 font-display text-xs font-medium text-oncolor transition-colors duration-200 hover:bg-pine-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
         >
           ✨ 立即摘要
         </button>

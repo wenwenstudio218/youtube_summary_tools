@@ -46,7 +46,7 @@ export function SummaryPanel({ summary, onSeek }: Props) {
                 onClick={() => setLength(opt.value)}
                 className={`cursor-pointer rounded-md px-3.5 py-1.5 font-display text-sm transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine ${
                   selected
-                    ? "bg-pine text-paper"
+                    ? "bg-pine text-oncolor"
                     : "text-muted hover:text-ink"
                 }`}
               >

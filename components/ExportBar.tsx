@@ -83,7 +83,7 @@ export function ExportBar({ summary, length }: Props) {
     "cursor-pointer rounded-lg border border-hairline px-3 py-1.5 font-data text-xs text-ink transition-colors duration-200 hover:border-pine hover:text-pine focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine";
 
   const item =
-    "block w-full cursor-pointer px-3 py-2 text-left font-data text-xs text-ink transition-colors duration-200 hover:bg-pine hover:text-paper";
+    "block w-full cursor-pointer px-3 py-2 text-left font-data text-xs text-ink transition-colors duration-200 hover:bg-pine hover:text-oncolor";
 
   return (
     <div className="flex items-center gap-2">

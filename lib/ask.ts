@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { AppError, ErrorCodes } from "./errors";
+import { stripMarkdown } from "./text";
 import type { AskHistoryItem, AskResult, TranscriptSegment } from "./types";
 
 export type AskOptions = {
@@ -124,7 +125,7 @@ async function liveAnswer(
   }
 
   return {
-    answer: parsed.answer ?? "",
+    answer: stripMarkdown(parsed.answer ?? ""),
     citations: parsed.citations ?? [],
   };
 }

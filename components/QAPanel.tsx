@@ -13,15 +13,6 @@ type Props = {
   onSeek: (seconds: number) => void;
 };
 
-/** 防禦性清除回答中殘留的 Markdown 標記，確保純文字呈現 */
-function stripMarkdown(text: string): string {
-  return text
-    .replace(/\*\*(.+?)\*\*/g, "$1") // 粗體 **x**
-    .replace(/__(.+?)__/g, "$1") // 粗體 __x__
-    .replace(/`([^`]+)`/g, "$1") // 行內程式碼 `x`
-    .replace(/^#{1,6}\s+/gm, ""); // 標題 # x
-}
-
 function TimestampChip({
   citation,
   onSeek,
@@ -109,7 +100,7 @@ export function QAPanel({ url, onSeek }: Props) {
           ) : (
             <div key={i}>
               <p className="whitespace-pre-wrap font-reading text-[1.02rem] leading-relaxed text-ink">
-                {stripMarkdown(m.text)}
+                {m.text}
               </p>
               {m.citations.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1.5">
@@ -151,7 +142,7 @@ export function QAPanel({ url, onSeek }: Props) {
         <button
           type="submit"
           disabled={loading || !input.trim()}
-          className="cursor-pointer rounded-lg bg-pine px-5 py-2.5 font-display text-sm font-medium text-paper transition-colors duration-200 hover:bg-pine-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine disabled:cursor-not-allowed disabled:opacity-45"
+          className="cursor-pointer rounded-lg bg-pine px-5 py-2.5 font-display text-sm font-medium text-oncolor transition-colors duration-200 hover:bg-pine-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine disabled:cursor-not-allowed disabled:opacity-45"
         >
           送出
         </button>
