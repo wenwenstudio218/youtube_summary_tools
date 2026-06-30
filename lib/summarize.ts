@@ -24,10 +24,21 @@ export async function summarize(
   options: SummarizeOptions = {},
 ): Promise<Summary> {
   const mode = options.mode ?? process.env.SUMMARIZE_MODE ?? "mock";
-  if (mode !== "live") {
-    return mockSummary(metadata, segments);
-  }
-  return liveSummary(metadata, segments, options);
+  const result =
+    mode !== "live"
+      ? mockSummary(metadata, segments)
+      : await liveSummary(metadata, segments, options);
+  return sortSummary(result);
+}
+
+/** 依時間戳由小到大排序長短兩版重點（Claude 回傳順序不保證遞增） */
+function sortSummary(summary: Summary): Summary {
+  const byTime = (a: Bullet, b: Bullet) => a.timestamp - b.timestamp;
+  return {
+    ...summary,
+    short: [...summary.short].sort(byTime),
+    long: [...summary.long].sort(byTime),
+  };
 }
 
 /** 從字幕均勻取樣 n 個片段，作為假摘要的重點來源 */

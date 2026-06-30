@@ -68,6 +68,37 @@ describe("summarize", () => {
     expect(s.long).toHaveLength(2);
   });
 
+  it("輸出依時間戳由小到大排序（不論 Claude 回傳順序）", async () => {
+    const fakeClient = {
+      messages: {
+        create: vi.fn().mockResolvedValue({
+          content: [
+            {
+              type: "text",
+              text: JSON.stringify({
+                short: [
+                  { point: "後", timestamp: 120 },
+                  { point: "前", timestamp: 10 },
+                  { point: "中", timestamp: 60 },
+                ],
+                long: [
+                  { point: "b", timestamp: 90 },
+                  { point: "a", timestamp: 30 },
+                ],
+              }),
+            },
+          ],
+        }),
+      },
+    };
+    const s = await summarize(metadata, segments, {
+      mode: "live",
+      client: fakeClient as never,
+    });
+    expect(s.short.map((b) => b.timestamp)).toEqual([10, 60, 120]);
+    expect(s.long.map((b) => b.timestamp)).toEqual([30, 90]);
+  });
+
   it("live 模式回應非 JSON 時拋出 SUMMARIZE_FAILED", async () => {
     const fakeClient = {
       messages: {
