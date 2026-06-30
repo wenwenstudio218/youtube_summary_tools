@@ -21,7 +21,7 @@ describe("summaryToHtml", () => {
     expect(html).toContain("頻道：範例頻道");
     expect(html).toContain("[01:15]");
     expect(html).toContain("重點一");
-    expect(html).toContain("重點摘要（短版）");
+    expect(html).toContain("摘要（短版）");
   });
 
   it("長版使用 long 重點", () => {

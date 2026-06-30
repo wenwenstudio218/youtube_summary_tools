@@ -82,7 +82,7 @@ export function SummarizerApp() {
   if (loading) {
     return (
       <div className="mx-auto flex w-full max-w-6xl items-center justify-center px-5 py-24">
-        <p className="font-data text-sm text-muted">整理重點中…</p>
+        <p className="font-data text-sm text-muted">整理摘要中…</p>
       </div>
     );
   }
@@ -92,10 +92,10 @@ export function SummarizerApp() {
     <div className="mx-auto w-full max-w-6xl px-5 py-8 sm:py-12">
       <header className="mb-8 text-center sm:mb-10">
         <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
-          把影片，讀成筆記。
+          把影片，讀成筆記
         </h1>
         <p className="mt-4 font-reading text-lg text-muted">
-          搜尋或貼上 YouTube 網址，整理成可隨時跳轉的重點。
+          搜尋或貼上 YouTube 網址，整理成可隨時跳轉的摘要
         </p>
         <div className="mt-6 flex justify-center">
           <ModeToggle mode={mode} onChange={setMode} />
@@ -142,7 +142,7 @@ export function SummarizerApp() {
             disabled={!url.trim()}
             className="cursor-pointer rounded-xl bg-pine px-6 py-3 font-display text-sm font-medium text-paper transition-colors duration-200 hover:bg-pine-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine disabled:cursor-not-allowed disabled:opacity-45"
           >
-            整理重點
+            整理摘要
           </button>
         </form>
       )}

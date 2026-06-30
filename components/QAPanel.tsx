@@ -93,7 +93,7 @@ export function QAPanel({ url, onSeek }: Props) {
       <div className="mt-5 space-y-5">
         {messages.length === 0 && !loading && (
           <p className="font-reading text-[0.95rem] italic text-muted">
-            針對影片內容提問，例如「重點是什麼？」「有提到 X 嗎？」
+            針對影片內容提問，例如「主要在講什麼？」「有提到 X 嗎？」
           </p>
         )}
 

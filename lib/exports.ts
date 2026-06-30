@@ -45,7 +45,7 @@ export function summaryToHtml(summary: Summary, length: SummaryLength): string {
 <h1>${escapeHtml(metadata.title)}</h1>
 <p class="meta">頻道：${escapeHtml(metadata.channel)}</p>
 <p class="meta">影片：<a href="${videoUrl}">${videoUrl}</a></p>
-<h2>重點摘要（${lengthLabel}）</h2>
+<h2>摘要（${lengthLabel}）</h2>
 <ul>
 ${items}
 </ul>

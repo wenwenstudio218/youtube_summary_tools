@@ -14,7 +14,7 @@ export function summaryToMarkdown(summary: Summary, length: SummaryLength): stri
     `- 頻道：${metadata.channel}`,
     `- 影片：${videoUrl}`,
     "",
-    `## 重點摘要（${lengthLabel}）`,
+    `## 摘要（${lengthLabel}）`,
     "",
   ];
 

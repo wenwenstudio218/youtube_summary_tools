@@ -28,7 +28,7 @@ export function SummaryPanel({ summary, onSeek }: Props) {
   }
 
   return (
-    <section aria-label="重點摘要">
+    <section aria-label="摘要">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div
           role="tablist"

@@ -22,8 +22,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "YT 內容整理工具",
-  description: "貼上 YouTube 網址，把影片整理成可隨時跳轉的重點筆記。",
+  title: "Youtube影片 摘要整理工具",
+  description: "搜尋或貼上 YouTube 網址，把影片整理成可隨時跳轉的摘要筆記。",
 };
 
 export default function RootLayout({

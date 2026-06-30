@@ -22,7 +22,7 @@ describe("summaryToMarkdown", () => {
     const md = summaryToMarkdown(summary, "short");
     expect(md).toContain("# 範例影片");
     expect(md).toContain("- 頻道：範例頻道");
-    expect(md).toContain("重點摘要（短版）");
+    expect(md).toContain("摘要（短版）");
     expect(md).toContain("- [01:15] 重點一");
     expect(md).toContain("- [1:01:01] 重點二");
     expect(md).not.toContain("&t=");
@@ -30,7 +30,7 @@ describe("summaryToMarkdown", () => {
 
   it("長版使用 long 的重點", () => {
     const md = summaryToMarkdown(summary, "long");
-    expect(md).toContain("重點摘要（長版）");
+    expect(md).toContain("摘要（長版）");
     expect(md).toContain("詳細重點");
     expect(md).not.toContain("重點一");
   });
