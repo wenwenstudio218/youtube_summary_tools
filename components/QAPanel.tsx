@@ -13,6 +13,15 @@ type Props = {
   onSeek: (seconds: number) => void;
 };
 
+/** 防禦性清除回答中殘留的 Markdown 標記，確保純文字呈現 */
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1") // 粗體 **x**
+    .replace(/__(.+?)__/g, "$1") // 粗體 __x__
+    .replace(/`([^`]+)`/g, "$1") // 行內程式碼 `x`
+    .replace(/^#{1,6}\s+/gm, ""); // 標題 # x
+}
+
 function TimestampChip({
   citation,
   onSeek,
@@ -99,8 +108,8 @@ export function QAPanel({ url, onSeek }: Props) {
             </p>
           ) : (
             <div key={i}>
-              <p className="font-reading text-[1.02rem] leading-relaxed text-ink">
-                {m.text}
+              <p className="whitespace-pre-wrap font-reading text-[1.02rem] leading-relaxed text-ink">
+                {stripMarkdown(m.text)}
               </p>
               {m.citations.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1.5">

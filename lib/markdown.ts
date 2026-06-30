@@ -20,8 +20,7 @@ export function summaryToMarkdown(summary: Summary, length: SummaryLength): stri
 
   for (const b of bullets) {
     const ts = formatTimestamp(b.timestamp);
-    const tsLink = `${videoUrl}&t=${Math.floor(b.timestamp)}s`;
-    lines.push(`- [${ts}](${tsLink}) ${b.point}`);
+    lines.push(`- [${ts}] ${b.point}`);
   }
 
   return lines.join("\n") + "\n";

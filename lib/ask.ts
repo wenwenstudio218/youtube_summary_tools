@@ -86,6 +86,8 @@ async function liveAnswer(
   const system =
     "你是影片內容問答助手。只根據提供的逐字稿回答使用者問題，一律使用繁體中文。" +
     "若逐字稿沒有相關內容，誠實說明影片未提及，不要編造。" +
+    "answer 請用純文字，不要使用任何 Markdown 語法（不要用 ** 粗體、# 標題、反引號程式碼）；" +
+    "需要列點時直接用「1. 2. 3.」或頓號分隔即可。" +
     "在 citations 附上與回答最相關的時間戳（秒，整數，取自逐字稿的 [Ns] 標記）；" +
     "若無明確對應片段，citations 可為空陣列。\n\n逐字稿：\n" +
     buildTranscriptText(segments);

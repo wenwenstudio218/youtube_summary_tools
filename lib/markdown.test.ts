@@ -23,12 +23,9 @@ describe("summaryToMarkdown", () => {
     expect(md).toContain("# 範例影片");
     expect(md).toContain("- 頻道：範例頻道");
     expect(md).toContain("重點摘要（短版）");
-    expect(md).toContain(
-      "- [01:15](https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=75s) 重點一",
-    );
-    expect(md).toContain(
-      "- [1:01:01](https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=3661s) 重點二",
-    );
+    expect(md).toContain("- [01:15] 重點一");
+    expect(md).toContain("- [1:01:01] 重點二");
+    expect(md).not.toContain("&t=");
   });
 
   it("長版使用 long 的重點", () => {

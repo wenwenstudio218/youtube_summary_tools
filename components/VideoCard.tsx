@@ -41,7 +41,7 @@ export function VideoCard({ card, onSummarize }: Props) {
         <button
           type="button"
           onClick={() => onSummarize(card.videoId)}
-          className="mt-3 cursor-pointer self-start rounded-lg border border-pine px-3 py-1.5 font-display text-xs font-medium text-pine transition-colors duration-200 hover:bg-pine hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
+          className="mt-3 cursor-pointer self-start rounded-lg bg-pine px-3 py-1.5 font-display text-xs font-medium text-paper transition-colors duration-200 hover:bg-pine-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pine"
         >
           ✨ 立即摘要
         </button>
