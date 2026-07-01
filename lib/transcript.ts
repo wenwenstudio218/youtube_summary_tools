@@ -10,9 +10,16 @@ import type { TranscriptSegment } from "./types";
 
 type RawSegment = { text: string; offset: number };
 
+export type TranscriptOptions = {
+  supadataKey?: string;
+  fetchFn?: typeof fetch;
+};
+
 // 連續字幕片段的時間間隔中位數門檻：字幕節奏通常 1–6 秒，
 // 毫秒會落在 1000+。大於此值即判定為毫秒，需除以 1000 轉成秒。
 const MS_GAP_THRESHOLD = 50;
+
+const SUPADATA_ENDPOINT = "https://api.supadata.ai/v1/youtube/transcript";
 
 /**
  * 正規化字幕片段的時間單位為「秒」。
@@ -40,11 +47,50 @@ export function normalizeSegments(raw: RawSegment[]): TranscriptSegment[] {
   return segments;
 }
 
+type SupadataChunk = { text?: string; offset?: number };
+
 /**
- * 抓取指定影片的字幕並正規化時間單位。
- * 無字幕或抓取失敗時拋出帶錯誤碼的 AppError。
+ * 透過 Supadata 取得字幕（雲端可用，且無字幕影片會自動轉寫）。
+ * offset 為毫秒，統一轉成秒。
  */
-export async function fetchTranscript(videoId: string): Promise<TranscriptSegment[]> {
+export async function fetchViaSupadata(
+  videoId: string,
+  apiKey: string,
+  fetchFn: typeof fetch = fetch,
+): Promise<TranscriptSegment[]> {
+  const url = `${SUPADATA_ENDPOINT}?videoId=${encodeURIComponent(videoId)}`;
+
+  let res: Response;
+  try {
+    res = await fetchFn(url, { headers: { "x-api-key": apiKey } });
+  } catch {
+    throw new AppError(ErrorCodes.TRANSCRIPT_FETCH_FAILED, "無法連線字幕服務");
+  }
+
+  if (!res.ok) {
+    if (res.status === 404) {
+      throw new AppError(ErrorCodes.NO_TRANSCRIPT, "此影片沒有可用字幕，無法摘要");
+    }
+    throw new AppError(
+      ErrorCodes.TRANSCRIPT_FETCH_FAILED,
+      `字幕服務回應失敗（${res.status}）`,
+    );
+  }
+
+  const data = (await res.json()) as { content?: SupadataChunk[] };
+  const content = Array.isArray(data.content) ? data.content : [];
+  const segments: TranscriptSegment[] = content
+    .filter((c) => c.text && c.text.trim().length > 0)
+    .map((c) => ({ text: c.text!.trim(), start: (c.offset ?? 0) / 1000 }));
+
+  if (segments.length === 0) {
+    throw new AppError(ErrorCodes.NO_TRANSCRIPT, "此影片沒有可用字幕，無法摘要");
+  }
+  return segments;
+}
+
+/** 透過 youtube-transcript 套件取得字幕（本機可用，雲端 IP 常被 YouTube 封鎖） */
+async function fetchViaYoutubeTranscript(videoId: string): Promise<TranscriptSegment[]> {
   let raw: RawSegment[];
   try {
     raw = await YoutubeTranscript.fetchTranscript(videoId);
@@ -67,4 +113,33 @@ export async function fetchTranscript(videoId: string): Promise<TranscriptSegmen
     throw new AppError(ErrorCodes.NO_TRANSCRIPT, "此影片沒有可用字幕，無法摘要");
   }
   return segments;
+}
+
+/**
+ * 抓取指定影片的字幕。
+ * 有設定 SUPADATA_API_KEY 時優先用 Supadata（雲端可靠 + 無字幕備援）；
+ * 若 Supadata 遇到非「無字幕」的錯誤，回退到 youtube-transcript（本機可用）。
+ */
+export async function fetchTranscript(
+  videoId: string,
+  options: TranscriptOptions = {},
+): Promise<TranscriptSegment[]> {
+  const supadataKey = options.supadataKey ?? process.env.SUPADATA_API_KEY;
+
+  if (supadataKey) {
+    try {
+      return await fetchViaSupadata(videoId, supadataKey, options.fetchFn);
+    } catch (err) {
+      // 影片確定無字幕就直接回報；其他錯誤才回退
+      if (
+        err instanceof AppError &&
+        (err.code === ErrorCodes.NO_TRANSCRIPT ||
+          err.code === ErrorCodes.VIDEO_UNAVAILABLE)
+      ) {
+        throw err;
+      }
+    }
+  }
+
+  return fetchViaYoutubeTranscript(videoId);
 }
